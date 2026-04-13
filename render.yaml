@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: ohhsnap-review-sync
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12"
+      - key: GOOGLE_SERVICE_ACCOUNT_JSON
+        sync: false
+      - key: GOOGLE_LOCATION_ID
+        sync: false
+      - key: GOOGLE_ACCOUNT_ID
+        sync: false
+      - key: FACEBOOK_PAGE_ID
+        sync: false
+      - key: FACEBOOK_PAGE_ACCESS_TOKEN
+        sync: false
+      - key: YELP_API_KEY
+        sync: false
+      - key: YELP_BUSINESS_ID
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_REPO
+        sync: false
+      - key: GITHUB_BRANCH
+        value: main
+      - key: GITHUB_TESTIMONIAL_PATH
+        value: _data/testimonial.yml
+      - key: SYNC_INTERVAL_MINUTES
+        value: "60"
+      - key: AUTO_RESPOND_ENABLED
+        value: "false"

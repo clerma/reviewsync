@@ -1,0 +1,101 @@
+{% comment %}
+  Review Widget Include for Jekyll / CloudCannon
+  Usage: {% include reviews.html %}
+  Optional overrides: {% include reviews.html max_reviews=10 theme="dark" %}
+{% endcomment %}
+
+{% assign api_url = site.review_plugin.api_url | default: "" %}
+{% assign max_reviews = include.max_reviews | default: site.review_plugin.max_reviews | default: 6 %}
+{% assign theme = include.theme | default: site.review_plugin.theme | default: "light" %}
+{% assign show_form = include.show_form | default: site.review_plugin.show_submit_form | default: true %}
+{% assign show_filter = include.show_filter | default: site.review_plugin.show_platform_filter | default: true %}
+{% assign show_stats = include.show_stats | default: site.review_plugin.show_stats | default: true %}
+
+<div id="review-widget"
+     class="review-widget review-widget--{{ theme }}"
+     data-api-url="{{ api_url }}"
+     data-max-reviews="{{ max_reviews }}"
+     data-theme="{{ theme }}"
+     data-show-form="{{ show_form }}"
+     data-show-filter="{{ show_filter }}"
+     data-show-stats="{{ show_stats }}">
+
+  <!-- Stats Section -->
+  {% if show_stats %}
+  <div class="rw-stats" id="rw-stats">
+    <div class="rw-stats__rating" id="rw-avg-rating">--</div>
+    <div class="rw-stats__stars" id="rw-avg-stars"></div>
+    <div class="rw-stats__count" id="rw-total-count">Loading reviews...</div>
+    <div class="rw-stats__platforms" id="rw-platform-stats"></div>
+  </div>
+  {% endif %}
+
+  <!-- Platform Filter -->
+  {% if show_filter %}
+  <div class="rw-filters" id="rw-filters">
+    <button class="rw-filter rw-filter--active" data-platform="all">All</button>
+    <button class="rw-filter" data-platform="google">
+      <svg class="rw-filter__icon" viewBox="0 0 24 24" width="16" height="16"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Google
+    </button>
+    <button class="rw-filter" data-platform="facebook">
+      <svg class="rw-filter__icon" viewBox="0 0 24 24" width="16" height="16"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Facebook
+    </button>
+    <button class="rw-filter" data-platform="yelp">
+      <svg class="rw-filter__icon" viewBox="0 0 24 24" width="16" height="16"><path fill="#D32323" d="M20.16 12.594l-4.995 1.433c-.96.276-1.74-.8-1.176-1.63l2.905-4.308c.564-.835 1.856-.262 1.856.736v2.77c0 .405-.22.778-.59.999zm-8.4 5.89l1.472-4.982c.285-.96 1.64-1.044 2.055-.127l2.14 4.726c.414.918-.48 1.854-1.44 1.54l-3.612-1.157c-.4-.128-.67-.478-.67-.9v-1.1h.055zM3.84 7.594l4.995 1.433c.96.276 1.1 1.6.21 2.012L4.14 13.25c-.89.413-1.85-.48-1.384-1.4L4.1 8.493c.19-.38.57-.62.99-.62h-1.25v-.28zM11.76 1.45v5.237c0 1-.93 1.65-1.77 1.233L5.1 5.47c-.84-.418-.64-1.72.33-1.9L10.38.71c.4-.074.8.07 1.07.37.12.134.22.24.31.37zM11.76 17.12v5.24c0 1 .93 1.65 1.77 1.23l4.89-2.45c.84-.42.64-1.72-.33-1.9l-4.95-2.86c-.4-.074-.8.07-1.07.37-.12.13-.22.24-.31.37z"/></svg>
+      Yelp
+    </button>
+    <button class="rw-filter" data-platform="website">
+      <svg class="rw-filter__icon" viewBox="0 0 24 24" width="16" height="16"><path fill="#28a745" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      Website
+    </button>
+  </div>
+  {% endif %}
+
+  <!-- Reviews Container -->
+  <div class="rw-reviews" id="rw-reviews">
+    <div class="rw-loading">
+      <div class="rw-spinner"></div>
+      <p>Loading reviews...</p>
+    </div>
+  </div>
+
+  <!-- Load More -->
+  <div class="rw-load-more" id="rw-load-more" style="display:none;">
+    <button class="rw-btn rw-btn--outline" id="rw-load-more-btn">Load More Reviews</button>
+  </div>
+
+  <!-- Submit Review Form -->
+  {% if show_form %}
+  <div class="rw-submit" id="rw-submit">
+    <h3 class="rw-submit__title">Leave a Review</h3>
+    <form id="rw-form" class="rw-form">
+      <div class="rw-form__group">
+        <label for="rw-name">Your Name</label>
+        <input type="text" id="rw-name" name="author" required maxlength="100" placeholder="Your name">
+      </div>
+      <div class="rw-form__group">
+        <label>Rating</label>
+        <div class="rw-star-input" id="rw-star-input">
+          <span class="rw-star-btn" data-rating="1">&#9734;</span>
+          <span class="rw-star-btn" data-rating="2">&#9734;</span>
+          <span class="rw-star-btn" data-rating="3">&#9734;</span>
+          <span class="rw-star-btn" data-rating="4">&#9734;</span>
+          <span class="rw-star-btn" data-rating="5">&#9734;</span>
+        </div>
+        <input type="hidden" id="rw-rating" name="rating" value="5" required>
+      </div>
+      <div class="rw-form__group">
+        <label for="rw-text">Your Review</label>
+        <textarea id="rw-text" name="text" rows="4" maxlength="2000" placeholder="Tell us about your experience..."></textarea>
+      </div>
+      <button type="submit" class="rw-btn rw-btn--primary" id="rw-submit-btn">Submit Review</button>
+      <div id="rw-form-message" class="rw-form__message"></div>
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+<link rel="stylesheet" href="{{ '/assets/css/reviews.css' | relative_url }}">
+<script src="{{ '/assets/js/reviews.js' | relative_url }}"></script>

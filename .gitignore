@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+.env
+data/reviews.json
+data/test_*.yml
+.pytest_cache/

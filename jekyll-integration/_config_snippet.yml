@@ -1,0 +1,17 @@
+# Add these lines to your Jekyll _config.yml
+# ─────────────────────────────────────────
+
+# Review Plugin Settings
+review_plugin:
+  api_url: "https://your-api-domain.com"  # Where the FastAPI backend is deployed
+  max_reviews: 6
+  platforms:
+    - google
+    - facebook
+    - yelp
+    - website
+  theme: "light"           # "light" or "dark"
+  show_submit_form: true   # Allow visitors to leave reviews on the site
+  show_platform_filter: true
+  show_stats: true
+  cache_minutes: 15        # How long to cache reviews client-side

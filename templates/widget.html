@@ -1,0 +1,24 @@
+<!-- Example: Embed the review widget on your website -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our Reviews</title>
+</head>
+<body>
+    <h1>What Our Customers Say</h1>
+
+    <!-- Review Widget Container -->
+    <div id="review-widget"></div>
+
+    <!-- Configure and load the widget -->
+    <script>
+        window.ReviewWidgetConfig = {
+            maxReviews: 5,
+            platform: 'all',    // 'all', 'google', 'facebook', 'yelp', 'website'
+            theme: 'light',     // 'light' or 'dark'
+            container: 'review-widget'
+        };
+    </script>
+    <script src="http://localhost:8000/widget/embed.js"></script>
+</body>
+</html>
